@@ -2,8 +2,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser")
 
-const moeda = require("https://economia.awesomeapi.com.br/json/all")
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -18,19 +16,17 @@ app.post('/Dialogflow', function(request, response){
   
   if(intentName == "Cotacao"){
     response.json({"fulfillmentText": "Teste"})
+  
   }
   
-  if(intentName == "Conversao"){
-    var resp = request.body.queryResult.parameters['moeda']
-    
-    moeda(resp, {sync: false, timeout:1000}).then(conversao => {
-      response.json({"fulfillmentText": conversao.high})
+   if (intentName == "Conversao") {
+    var moeda = request.body.queryResult.parameters['moeda']
+    app.get('https://economia.awesomeapi.com.br/json/all', function (request2, response2) {
+      response.json({"fulfillmentText": response2})
+      console.log(response2)
     })
-  }
-  
-});
 
-app.get("https://economia.awesomeapi.com.br/json/all", (request, response) => {
+  }
   
 });
 
