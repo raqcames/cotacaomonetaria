@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser")
 
+const moeda = require("https://economia.awesomeapi.com.br/json/all")
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -17,6 +19,17 @@ app.post('/Dialogflow', function(request, response){
   if(intentName == "Cotacao"){
     response.json({"fulfillmentText": "Teste"})
   }
+  
+  if(intentName == "Conversao"){
+    var resp = request.body.queryResult.parameters['moeda']
+    
+    moeda(resp, {sync: false, timeout:1000}).then(conversao => {
+      var local = conversao.high
+    })
+    
+    response.json
+  }
+  
 });
 
 app.get("https://economia.awesomeapi.com.br/json/all", (request, response) => {
@@ -24,9 +37,6 @@ app.get("https://economia.awesomeapi.com.br/json/all", (request, response) => {
 });
 
 
-
-
-// listen for requests :)
-//const listener = app.listen(process.env.PORT, () => {
-//  console.log("Your app is listening on port " + listener.address().port);
-//});
+const listener = app.listen(process.env.PORT, () => {
+  console.log("Your app is listening on port " + listener.address().port);
+});
