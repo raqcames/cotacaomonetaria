@@ -24,10 +24,8 @@ app.post('/Dialogflow', function(request, response){
     var resp = request.body.queryResult.parameters['moeda']
     
     moeda(resp, {sync: false, timeout:1000}).then(conversao => {
-      var local = conversao.high
+      response.json({"fulfillmentText": conversao.high})
     })
-    
-    response.json
   }
   
 });
