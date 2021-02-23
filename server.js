@@ -22,8 +22,8 @@ app.post('/Dialogflow', function(request, response){
    if (intentName == "Conversao") {
     var moeda = request.body.queryResult.parameters['moeda']
     app.get('https://economia.awesomeapi.com.br/json/all', function (request2, response2) {
-      response.json({"fulfillmentText": response2})
-      console.log(response2)
+      //response.json({"fulfillmentText": response2})
+      console.log(response2) 
     })
 
   }
