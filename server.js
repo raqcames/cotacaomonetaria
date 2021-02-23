@@ -39,8 +39,11 @@ app.post('/Dialogflow', function(request, response){
         let JPY = data.JPY.high
         let BTC = data.BTC.high
 
-        response.json({"fulfillmentText": "A cotação do BRL está: " + data.USD.high})
-        response.json({"fulfillmentText": "A cotação do BRL está: " + data.USD.high})
+        response.json({"fulfillmentText": "A cotação do Real está: \n \n" 
+                       + "Dólar Comercial: " + USD
+                       + "\nEuro: " + EUR
+                       + "\nIene Japonês: " + JPY
+                       + "\nBitcoin: " + BTC})
       })
 
     })
