@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser")
+const https = require("https")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,10 +21,20 @@ app.post('/Dialogflow', function(request, response){
   }
   
    if (intentName == "Conversao") {
-    var moeda = request.body.queryResult.parameters['moeda']
-    app.get('https://economia.awesomeapi.com.br/json/all', function (request2, response2) {
-      //response.json({"fulfillmentText": response2})
-      console.log(response2) 
+    var resp = request.body.queryResult.parameters['moeda']
+    https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
+      let data = '';
+
+      // Isso aqui é para carregar todo o conteúdo pq ele não é recebido inteiro.
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      // Vai ser executado quando todo o conteúdo for carregado
+      resp.on('end', () => {
+        data = JSON.parse(data)
+      })
+
     })
 
   }
