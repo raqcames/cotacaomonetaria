@@ -33,6 +33,14 @@ app.post('/Dialogflow', function(request, response){
       // Vai ser executado quando todo o conteúdo for carregado
       resp.on('end', () => {
         data = JSON.parse(data)
+        
+        let USD = data.USD.high
+        let EUR = data.EUR.high
+        let JPY = data.JPY.high
+        let BTC = data.BTC.high
+
+        response.json({"fulfillmentText": "A cotação do BRL está: " + data.USD.high})
+        response.json({"fulfillmentText": "A cotação do BRL está: " + data.USD.high})
       })
 
     })
