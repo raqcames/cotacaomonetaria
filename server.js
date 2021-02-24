@@ -60,22 +60,22 @@ app.post('/Dialogflow', function(request, response){
         data = JSON.parse(data)
         
         if(USD === "USD"){
-          let conversao = number * data.USD.high
+          let conversao = number / data.USD.high
           response.json({"fulfillmentText": "A conversão do valor R$" + number + " para o Dólar Americano ficou de $" + conversao.toFixed(2)})
         }
         
         if(EUR === "EUR"){
-          let conversao = number * data.EUR.high
+          let conversao = number / data.EUR.high
           response.json({"fulfillmentText": "A conversão do valor R$" + number + " para o Euro ficou de €" + conversao.toFixed(2)})
         }
         
         if(JPY === "JPY"){
-          let conversao = (number * data.JPY.high).toFixed(2)
+          let conversao = (number / data.JPY.high).toFixed(2)
           response.json({"fulfillmentText": "A conversão do valor R$" + number + " para o Iene Japonês ficou de ¥" + conversao.toFixed(2)})
         }
         
         if(BTC === "BTC"){
-          let conversao = number * data.BTC.high
+          let conversao = number / data.BTC.high
           response.json({"fulfillmentText": "A conversão do valor R$" + number + " para o Bitcoin ficou de ฿" + conversao.toFixed(2)})
         }
       })
