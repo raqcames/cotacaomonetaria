@@ -16,12 +16,6 @@ app.post('/Dialogflow', function(request, response){
   var intentName = request.body.queryResult.intent.displayName;
   
   if(intentName == "Cotacao"){
-    response.json({"fulfillmentText": "Teste"})
-  
-  }
-  
-   if (intentName == "Conversao") {
-    var resp = request.body.queryResult.parameters['moeda']
     https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
       let data = '';
 
@@ -44,6 +38,28 @@ app.post('/Dialogflow', function(request, response){
                        + "\nEuro: " + EUR
                        + "\nIene Japonês: " + JPY
                        + "\nBitcoin: " + BTC})
+      })
+
+    })
+  }
+  
+   if (intentName == "Conversao") {
+    var resp = request.body.queryResult.parameters['moeda']
+    https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
+      let data = '';
+
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      resp.on('end', () => {
+        let euro = request.body.querResult.parameters["Euro"]
+        
+        if(euro === "EUR"){
+          response.json({"fulfillmentText": "Ta captando o euro" })
+        } else {
+          response.json({"fulfillmentText": "Não ta captando o euro" })
+        }
       })
 
     })
