@@ -39,13 +39,16 @@ app.post('/Dialogflow', function(request, response){
                        + "\nIene Japonês: " + JPY
                        + "\nBitcoin: " + BTC})
       })
-
     })
   }
   
    if (intentName == "Conversao") {
-    var resp = request.body.queryResult.parameters['moeda']
-    https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
+    let number = request.body.queryResult.parameters['number']
+    let euro = request.body.querResult.parameters['Euro']
+    
+    response.json({"fulfillmentText": "Ta captando o euro"+euro+number })
+     
+    /*https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
       let data = '';
 
       resp.on('data', (chunk) => {
@@ -53,16 +56,18 @@ app.post('/Dialogflow', function(request, response){
       });
 
       resp.on('end', () => {
-        let euro = request.body.querResult.parameters["Euro"]
+        data = JSON.parse(data)
+
+        response.json({"fulfillmentText": "Ta captando o euro"+euro })
         
-        if(euro === "EUR"){
+        if(euro === data.EUR){
           response.json({"fulfillmentText": "Ta captando o euro" })
         } else {
           response.json({"fulfillmentText": "Não ta captando o euro" })
         }
       })
 
-    })
+    })*/
 
   }
   
