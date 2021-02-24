@@ -44,11 +44,9 @@ app.post('/Dialogflow', function(request, response){
   
    if (intentName == "Conversao") {
     let number = request.body.queryResult.parameters['number']
-    let euro = request.body.querResult.parameters['Euro']
-    
-    response.json({"fulfillmentText": "Ta captando o euro"+euro+number })
+    let EUR = request.body.queryResult.parameters['Euro']
      
-    /*https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
+    https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
       let data = '';
 
       resp.on('data', (chunk) => {
@@ -57,17 +55,14 @@ app.post('/Dialogflow', function(request, response){
 
       resp.on('end', () => {
         data = JSON.parse(data)
-
-        response.json({"fulfillmentText": "Ta captando o euro"+euro })
         
-        if(euro === data.EUR){
-          response.json({"fulfillmentText": "Ta captando o euro" })
-        } else {
-          response.json({"fulfillmentText": "Não ta captando o euro" })
+        if(EUR === "EUR"){
+          let conversao = number * data.EUR.high
+          response.json({"fulfillmentText": "Conversão: " + conversao.toFixed(2)})
         }
       })
 
-    })*/
+    })
 
   }
   
