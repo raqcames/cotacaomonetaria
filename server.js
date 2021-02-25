@@ -56,9 +56,7 @@ app.post('/Dialogflow', function(request, response){
     let retorno = frase.split(' ')
     
     let array = []
-    
-    let conversao
-    
+
     let originalEUR = request.body.queryResult.outputContexts[0].parameters['Euro.original']
     let originalBRL = request.body.queryResult.outputContexts[0].parameters['Real.original']
     let originalUSD = request.body.queryResult.outputContexts[0].parameters['Dolar.original']
@@ -214,18 +212,6 @@ app.post('/Dialogflow', function(request, response){
         }
           
         }
-        /*switch (array[0] === "BRL"){
-          case array[1] === "EUR":
-            conversao = number / data.EUR.high
-            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao})
-            break
-          case array[1] === "USD":
-            conversao = number / data.USD.high
-            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + conversao})
-            break
-        }*/
-
-        
         
         // FIM TESTE
         
