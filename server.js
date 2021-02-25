@@ -69,7 +69,7 @@ app.post('/Dialogflow', function(request, response){
         
         // ESPAÇO PARA TESTE
         
-        
+        // Quebrando frase
         let retorno = frase.split(",")
         
         for (let i=0; i<retorno.lenght; i++){
@@ -78,11 +78,25 @@ app.post('/Dialogflow', function(request, response){
           }
         }
         
+        // Mudando palavras
         for (let i=0; i<array.lenght; i++){
-          switch(array[i]){
-            case USD === "USD":
+          if(array[i] === originalEUR){
+            array[i].replace(originalEUR, "EUR");
           }
+          if(array[i] === originalBRL){
+            array[i].replace(originalBRL, "BRL");
+          }
+          
         }
+        
+        let conversao
+        switch (array[0] === "EUR"){
+          case array[1] === "BRL":
+            conversao = number / data.BRL.high
+          response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + conversao})
+          break;
+        }
+
         
         
         // FIM TESTE
