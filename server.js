@@ -75,11 +75,14 @@ app.post('/Dialogflow', function(request, response){
         // Quebrando frase
         for (let i=0; i<retorno.length; i++){
           if((retorno[i] === originalEUR) || (retorno[i] === originalBRL)){
-            array[i] = retorno[i]
+            array.push(retorno[i])
+            //response.json({"fulfillmentText": retorno[i]})
           }
+          //response.json({"fulfillmentText": array[i]})
         }
         
-        //response.json({"fulfillmentText": array[0]})
+        response.json({"fulfillmentText": array[0]})
+        //response.json({"fulfillmentText": array[1]})
         
         // Mudando palavras
         
