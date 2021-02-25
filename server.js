@@ -43,7 +43,9 @@ app.post('/Dialogflow', function(request, response){
   }
   
    if (intentName == "Conversao") {
+     
     let number = request.body.queryResult.parameters['number']
+    
     let BRL = request.body.queryResult.parameters['Real']
     let USD = request.body.queryResult.parameters['Dolar']
     let EUR = request.body.queryResult.parameters['Euro']
@@ -51,11 +53,14 @@ app.post('/Dialogflow', function(request, response){
     let BTC = request.body.queryResult.parameters['Bitcoin']
     
     let frase = request.body.queryResult.queryText
-    let retorno = []
+    let retorno = frase.split(' ')
+    
+    //response.json({"fulfillmentText": retorno[2]})
     
     let array = []
     
     let originalEUR = request.body.queryResult.parameters.original['Euro']
+    response.json({"fulfillmentText": originalEUR})
     let originalBRL = request.body.queryResult.parameters.original['Real']
      
     https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
@@ -71,8 +76,6 @@ app.post('/Dialogflow', function(request, response){
         // ESPAÇO PARA TESTE
         
         // Quebrando frase
-        retorno = frase.split(",")
-    
         for (let i=0; i<retorno.lenght; i++){
           if(retorno[i] === (originalEUR || originalBRL)){
             array[i] = retorno[i]
