@@ -105,6 +105,29 @@ app.post('/Dialogflow', function(request, response){
         }
         
         // Conversão
+        
+        if(array.length == 1){
+          if(array[0] === "USD"){
+            let conversao = number / data.USD.high
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + conversao})
+          }  
+        
+          if(EUR === "EUR"){
+            let conversao = number / data.EUR.high
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao})
+          }
+        
+          if(JPY === "JPY"){
+            let conversao = number / data.JPY.high
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Iene Japonês ficou de ¥ " + conversao})
+          }
+        
+          if(BTC === "BTC"){
+            let conversao = number / data.BTC.high
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Bitcoin ficou de ฿ " + conversao})
+          }
+        } else {
+        
         if(array[0] == "EUR"){
           switch (array[1]){
             case "BRL":
@@ -123,9 +146,73 @@ app.post('/Dialogflow', function(request, response){
         }
         
         if(array[0] == "BRL"){
-          if(array[1] == "EUR"){
-            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + number / data.EUR.high})
+          switch (array[1]){
+            case "EUR":
+              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Real ficou de € " + (number / data.EUR.high)})
+              break
+            case "USD":
+              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + (number / data.USD.high)})
+              break
+            case "JPY":
+              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Iene Japonês ficou de ¥ " + (number / data.JPY.high)})
+              break
+            case "BTC":
+              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Bitcoin ficou de ฿ " + (number / data.BTC.high)})
+              break
           }
+        }
+        
+        if(array[0] == "USD"){
+          switch (array[1]){
+            case "BRL":
+              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Real ficou de R$ " + (number * data.USD.high)})
+              break
+            case "EUR":
+              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Euro ficou de € " + ((number * data.USD.high)/ data.EUR.high)})
+              break
+            case "JPY":
+              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.USD.high)/ data.JPY.high)})
+              break
+            case "BTC":
+              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Bitcoin ficou de ฿ " + ((number * data.USD.high)/ data.BTC.high)})
+              break
+          }
+        }
+        
+        if(array[0] == "JPY"){
+          switch (array[1]){
+            case "BRL":
+              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Real ficou de R$ " + (number * data.JPY.high)})
+              break
+            case "EUR":
+              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Euro ficou de € " + ((number * data.JPY.high)/ data.EUR.high)})
+              break
+            case "USD":
+              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Dólar Americano ficou de $ " + ((number * data.JPY.high)/ data.USD.high)})
+              break
+            case "BTC":
+              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Bitcoin ficou de ฿ " + ((number * data.JPY.high)/ data.BTC.high)})
+              break
+          }
+        }
+        
+        if(array[0] == "BTC"){
+          switch (array[1]){
+            case "BRL":
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Real ficou de R$ " + (number * data.BTC.high)})
+              break
+            case "EUR":
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Euro ficou de € " + ((number * data.BTC.high)/ data.EUR.high)})
+              break
+            case "USD":
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Dólar Americano ficou de $ " + ((number * data.BTC.high)/ data.USD.high)})
+              break
+            case "JPY":
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.BTC.high)/ data.JPY.high)})
+              break
+          }
+        }
+          
         }
         /*switch (array[0] === "BRL"){
           case array[1] === "EUR":
