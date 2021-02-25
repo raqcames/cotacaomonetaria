@@ -57,6 +57,8 @@ app.post('/Dialogflow', function(request, response){
     
     let array = []
     
+    let conversao
+    
     let originalEUR = request.body.queryResult.outputContexts[0].parameters['Euro.original']
     let originalBRL = request.body.queryResult.outputContexts[0].parameters['Real.original']
      
@@ -90,20 +92,22 @@ app.post('/Dialogflow', function(request, response){
           }
         }
         
-        let conversao
-        switch (array[0] == "EUR"){
-          response.json({"fulfillmentText": array[0]})
-          case array[1] == "BRL":
+        if(array[0] == "EUR"){
+          if(array[1] == "BRL"){
             conversao = number / data.BRL.high
+            response.json({"fulfillmentText": conversao})
             response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + conversao})
-            break
-          case array[1] == "USD":
-            conversao = number / data.USD.high
-            response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Dólar Americano ficou de $ " + conversao})
-            break
+          }
         }
         
-        switch (array[0] === "BRL"){
+        if(array[0] == "BRL"){
+          if(array[1] == "EUR"){
+            conversao = number / data.EUR.high
+            response.json({"fulfillmentText": conversao})
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao})
+          }
+        }
+        /*switch (array[0] === "BRL"){
           case array[1] === "EUR":
             conversao = number / data.EUR.high
             response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao})
@@ -112,7 +116,7 @@ app.post('/Dialogflow', function(request, response){
             conversao = number / data.USD.high
             response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + conversao})
             break
-        }
+        }*/
 
         
         
