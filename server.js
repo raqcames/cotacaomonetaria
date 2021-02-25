@@ -52,6 +52,8 @@ app.post('/Dialogflow', function(request, response){
     
     let frase = request.body.queryResult.queryText
     
+    let array = []
+    
     let originalEUR = request.body.queryResult.parameters.original['Euro']
     let originalBRL = request.body.queryResult.parameters.original['Real']
      
@@ -70,9 +72,15 @@ app.post('/Dialogflow', function(request, response){
         
         let retorno = frase.split(",")
         
-        for ( let i=0; i<retorno.lenght; i++){
-          if(retorno[i] == ()){
-            
+        for (let i=0; i<retorno.lenght; i++){
+          if(retorno[i] === (originalEUR || originalBRL)){
+            array[i] = retorno[i]
+          }
+        }
+        
+        for (let i=0; i<array.lenght; i++){
+          switch(array[i]){
+            case USD === "USD":
           }
         }
         
