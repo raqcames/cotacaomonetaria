@@ -51,6 +51,7 @@ app.post('/Dialogflow', function(request, response){
     let BTC = request.body.queryResult.parameters['Bitcoin']
     
     let frase = request.body.queryResult.queryText
+    let retorno = []
     
     let array = []
     
@@ -70,13 +71,15 @@ app.post('/Dialogflow', function(request, response){
         // ESPAÇO PARA TESTE
         
         // Quebrando frase
-        let retorno = frase.split(",")
-        
+        retorno = frase.split(",")
+    
         for (let i=0; i<retorno.lenght; i++){
           if(retorno[i] === (originalEUR || originalBRL)){
             array[i] = retorno[i]
           }
         }
+        
+        response.json({"fulfillmentText": array[0]})
         
         // Mudando palavras
         for (let i=0; i<array.lenght; i++){
@@ -93,8 +96,23 @@ app.post('/Dialogflow', function(request, response){
         switch (array[0] === "EUR"){
           case array[1] === "BRL":
             conversao = number / data.BRL.high
-          response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + conversao})
-          break;
+            response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + conversao})
+            break
+          case array[1] === "USD":
+            conversao = number / data.USD.high
+            response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Dólar Americano ficou de $ " + conversao})
+            break
+        }
+        
+        switch (array[0] === "BRL"){
+          case array[1] === "EUR":
+            conversao = number / data.EUR.high
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao})
+            break
+          case array[1] === "USD":
+            conversao = number / data.USD.high
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + conversao})
+            break
         }
 
         
@@ -102,7 +120,7 @@ app.post('/Dialogflow', function(request, response){
         // FIM TESTE
         
         
-        if(USD === "USD"){
+        /*if(USD === "USD"){
           let conversao = number / data.USD.high
           response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + conversao})
         }
@@ -120,7 +138,10 @@ app.post('/Dialogflow', function(request, response){
         if(BTC === "BTC"){
           let conversao = number / data.BTC.high
           response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Bitcoin ficou de ฿ " + conversao})
-        }
+        }*/
+        
+        
+        
       })
 
     })
