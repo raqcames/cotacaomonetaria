@@ -74,36 +74,30 @@ app.post('/Dialogflow', function(request, response){
         
         // Quebrando frase
         for (let i=0; i<retorno.length; i++){
-          if((retorno[i] === originalEUR) || (retorno[i] === originalBRL)){
+          if((retorno[i] == originalEUR) || (retorno[i] == originalBRL)){
             array.push(retorno[i])
-            //response.json({"fulfillmentText": retorno[i]})
           }
-          //response.json({"fulfillmentText": array[i]})
         }
+
         
-        response.json({"fulfillmentText": array[0]})
-        //response.json({"fulfillmentText": array[1]})
-        
-        // Mudando palavras
-        
-        
-        for (let i=0; i<array.lenght; i++){
-          if(array[i] === originalEUR){
-            array[i].replace(originalEUR, "EUR");
+        // Mudando palavras       
+        for (let i=0; i<array.length; i++){
+          if(array[i] == originalEUR){
+            array[i] = "EUR";
           }
-          if(array[i] === originalBRL){
-            array[i].replace(originalBRL, "BRL");
+          if(array[i] == originalBRL){
+            array[i] = "BRL";
           }
-          
         }
         
         let conversao
-        switch (array[0] === "EUR"){
-          case array[1] === "BRL":
+        switch (array[0] == "EUR"){
+          response.json({"fulfillmentText": array[0]})
+          case array[1] == "BRL":
             conversao = number / data.BRL.high
             response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + conversao})
             break
-          case array[1] === "USD":
+          case array[1] == "USD":
             conversao = number / data.USD.high
             response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Dólar Americano ficou de $ " + conversao})
             break
