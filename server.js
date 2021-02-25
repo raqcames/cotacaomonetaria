@@ -61,6 +61,9 @@ app.post('/Dialogflow', function(request, response){
     
     let originalEUR = request.body.queryResult.outputContexts[0].parameters['Euro.original']
     let originalBRL = request.body.queryResult.outputContexts[0].parameters['Real.original']
+    let originalUSD = request.body.queryResult.outputContexts[0].parameters['Dolar.original']
+    let originalJPY = request.body.queryResult.outputContexts[0].parameters['Iene.original']
+    let originalBTC = request.body.queryResult.outputContexts[0].parameters['Bitcoin.original']
      
     https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
       let data = '';
@@ -76,7 +79,7 @@ app.post('/Dialogflow', function(request, response){
         
         // Quebrando frase
         for (let i=0; i<retorno.length; i++){
-          if((retorno[i] == originalEUR) || (retorno[i] == originalBRL)){
+          if((retorno[i] == originalEUR) || (retorno[i] == originalBRL) || (retorno[i] == originalUSD) || (retorno[i] == originalJPY) || (retorno[i] == originalBTC)){
             array.push(retorno[i])
           }
         }
@@ -90,21 +93,38 @@ app.post('/Dialogflow', function(request, response){
           if(array[i] == originalBRL){
             array[i] = "BRL";
           }
+          if(array[i] == originalUSD){
+            array[i] = "USD";
+          }
+          if(array[i] == originalJPY){
+            array[i] = "JPY";
+          }
+          if(array[i] == originalBTC){
+            array[i] = "BTC";
+          }
         }
         
+        // Conversão
         if(array[0] == "EUR"){
-          if(array[1] == "BRL"){
-            conversao = number / data.BRL.high
-            response.json({"fulfillmentText": conversao})
-            response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + conversao})
+          switch (array[1]){
+            case "BRL":
+              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + (number * data.EUR.high)})
+              break
+            case "USD":
+              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Dólar Americano ficou de $ " + ((number * data.EUR.high)/ data.USD.high)})
+              break
+            case "JPY":
+              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.EUR.high)/ data.JPY.high)})
+              break
+            case "BTC":
+              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Bitcoin ficou de ฿ " + ((number * data.EUR.high)/ data.BTC.high)})
+              break
           }
         }
         
         if(array[0] == "BRL"){
           if(array[1] == "EUR"){
-            conversao = number / data.EUR.high
-            response.json({"fulfillmentText": conversao})
-            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao})
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + number / data.EUR.high})
           }
         }
         /*switch (array[0] === "BRL"){
