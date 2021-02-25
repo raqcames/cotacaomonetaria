@@ -59,9 +59,9 @@ app.post('/Dialogflow', function(request, response){
     
     let array = []
     
-    let originalEUR = request.body.queryResult.parameters.original['Euro']
+    let originalEUR = request.body.queryResult.outputContexts.parameters['Euro.original']
     response.json({"fulfillmentText": originalEUR})
-    let originalBRL = request.body.queryResult.parameters.original['Real']
+    //let originalBRL = request.body.queryResult.outputContexts.parameters.Real.original['Real']
      
     https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
       let data = '';
