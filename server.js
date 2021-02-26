@@ -36,8 +36,9 @@ app.post('/Dialogflow', function(request, response){
         response.json({"fulfillmentText": "Aqui vão as cotações do dia 😉 \n \n" 
                        + "✔️ Dólar Comercial: $ " + USD
                        + "\n✔️ Euro: € " + EUR
-                       + "\n✔️ Iene Japonês: ¥ " + JPY
-                       + "\n✔️ Bitcoin: ฿ " + BTC})
+                       + "\n✔️ Yen: ¥ " + JPY
+                       + "\n✔️ Bitcoin: ฿ " + BTC
+                       + "\n \nPosso ajudar em mais alguma coisa? 🤔"})
       })
     })
   }
