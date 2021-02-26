@@ -16,7 +16,7 @@ app.post("/Dialogflow", function(request, response) {
 
   if (intentName == "Cotacao") {
     let BRL = request.body.queryResult.parameters["real"];
-    let USD = request.body.queryResult.parameters["dolar"];
+    let USD;
     let EUR = request.body.queryResult.parameters["euro"];
     let JPY = request.body.queryResult.parameters["iene"];
     let BTC = request.body.queryResult.parameters["bitcoin"];
@@ -25,7 +25,6 @@ app.post("/Dialogflow", function(request, response) {
     let retorno = frase.split(" ");
 
     let array = [];
-    let resposta = "Aqui vão as cotações do dia 😉 \n \n";
 
     let originalEUR =
       request.body.queryResult.outputContexts[0].parameters["euro.original"];
@@ -79,30 +78,42 @@ app.post("/Dialogflow", function(request, response) {
 
           for (let i = 0; i < array.length; i++) {
             if (array[i] == originalEUR) {
-              array[i] = "EUR";
+              response.json({
+                fulfillmentText:
+                  "Aqui está a cotação do dia 😉 \n \n" +
+                  "✔️ Euro: € " +
+                  data.EUR.bid +
+                  "\n \nPosso ajudar em mais alguma coisa? 🤔"
+              });
             }
             if (array[i] == originalUSD) {
-              array[i] = "USD";
+              response.json({
+                fulfillmentText:
+                  "Aqui está a cotação do dia 😉 \n \n" +
+                  "✔️ Dólar Comercial: $ " +
+                  data.EUR.bid +
+                  "\n \nPosso ajudar em mais alguma coisa? 🤔"
+              });
             }
             if (array[i] == originalJPY) {
-              array[i] = "JPY";
+              response.json({
+                fulfillmentText:
+                  "Aqui está a cotação do dia 😉 \n \n" +
+                  "✔️ Iene Japonês: ¥ " +
+                  data.JPY.bid +
+                  "\n \nPosso ajudar em mais alguma coisa? 🤔"
+              });
             }
             if (array[i] == originalBTC) {
-              array[i] = "BTC";
+              response.json({
+                fulfillmentText:
+                  "Aqui está a cotação do dia 😉 \n \n" +
+                  "✔️ Bitcoin: ฿ " +
+                  data.BTC.bid +
+                  "\n \nPosso ajudar em mais alguma coisa? 🤔"
+              });
             }
           }
-
-          for (let i = 0; i < array.length; i++) {
-            resposta =
-              "✔️" +
-              data.array[i].name +
-              "(" +
-              data.array[i].code +
-              ") :" +
-              data.array[i].bid.toFixed(2) +
-              "\n";
-          }
-          response.json({ fulfillmentText: resposta });
         }
       });
     });
