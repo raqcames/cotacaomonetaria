@@ -58,11 +58,11 @@ app.post('/Dialogflow', function(request, response){
     
     let array = []
 
-    let originalEUR = request.body.queryResult.outputContexts[0].parameters['Euro.original']
-    let originalBRL = request.body.queryResult.outputContexts[0].parameters['Real.original']
-    let originalUSD = request.body.queryResult.outputContexts[0].parameters['Dolar.original']
-    let originalJPY = request.body.queryResult.outputContexts[0].parameters['Iene.original']
-    let originalBTC = request.body.queryResult.outputContexts[0].parameters['Bitcoin.original']
+    let originalEUR = request.body.queryResult.outputContexts[0].parameters['euro.original']
+    let originalBRL = request.body.queryResult.outputContexts[0].parameters['real.original']
+    let originalUSD = request.body.queryResult.outputContexts[0].parameters['dolar.original']
+    let originalJPY = request.body.queryResult.outputContexts[0].parameters['iene.original']
+    let originalBTC = request.body.queryResult.outputContexts[0].parameters['bitcoin.original']
      
     https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
       let data = '';
