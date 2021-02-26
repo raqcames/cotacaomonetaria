@@ -16,6 +16,24 @@ app.post('/Dialogflow', function(request, response){
   var intentName = request.body.queryResult.intent.displayName;
   
   if(intentName == "Cotacao"){
+    
+    let BRL = request.body.queryResult.parameters['real']
+    let USD = request.body.queryResult.parameters['dolar']
+    let EUR = request.body.queryResult.parameters['euro']
+    let JPY = request.body.queryResult.parameters['iene']
+    let BTC = request.body.queryResult.parameters['bitcoin']
+        
+    let frase = request.body.queryResult.queryText
+    let retorno = frase.split(' ')
+    
+    let array = []
+
+    let originalEUR = request.body.queryResult.outputContexts[0].parameters['euro.original']
+    let originalBRL = request.body.queryResult.outputContexts[0].parameters['real.original']
+    let originalUSD = request.body.queryResult.outputContexts[0].parameters['dolar.original']
+    let originalJPY = request.body.queryResult.outputContexts[0].parameters['iene.original']
+    let originalBTC = request.body.queryResult.outputContexts[0].parameters['bitcoin.original']
+    
     https.get('https://economia.awesomeapi.com.br/json/all', (resp) => {
       let data = '';
 
@@ -28,17 +46,49 @@ app.post('/Dialogflow', function(request, response){
       resp.on('end', () => {
         data = JSON.parse(data)
         
-        let USD = data.USD.bid
-        let EUR = data.EUR.bid
-        let JPY = data.JPY.bid
-        let BTC = data.BTC.bid
+        // Quebrando frase
+        for (let i=0; i<retorno.length; i++){
+          if((retorno[i] == originalEUR) || (retorno[i] == originalBRL) || (retorno[i] == originalUSD) || (retorno[i] == originalJPY) || (retorno[i] == originalBTC)){
+            array.push(retorno[i])
+          }
+        }
 
-        response.json({"fulfillmentText": "Aqui vão as cotações do dia 😉 \n \n" 
-                       + "✔️ Dólar Comercial: $ " + USD
-                       + "\n✔️ Euro: € " + EUR
-                       + "\n✔️ Yen: ¥ " + JPY
-                       + "\n✔️ Bitcoin: ฿ " + BTC
+        if(array[0] == ''){
+          response.json({"fulfillmentText": "Aqui vão as cotações do dia 😉 \n \n" 
+                       + "✔️ Dólar Comercial: $ " + data.USD.bid
+                       + "\n✔️ Euro: € " + data.EUR.bid
+                       + "\n✔️ Yen: ¥ " + data.JPY.bid
+                       + "\n✔️ Bitcoin: ฿ " + data.BTC.bid
                        + "\n \nPosso ajudar em mais alguma coisa? 🤔"})
+        } else {
+          // Mudando palavras       
+          for (let i=0; i<array.length; i++){
+            if(array[i] == originalEUR){
+              array[i] = "EUR";
+            }
+            if(array[i] == originalBRL){
+              array[i] = "BRL";
+            }
+            if(array[i] == originalUSD){
+              array[i] = "USD";
+            }
+            if(array[i] == originalJPY){
+              array[i] = "JPY";
+            }
+            if(array[i] == originalBTC){
+              array[i] = "BTC";
+            }
+          }
+          
+          for(let i=0; i<array.length;){
+            response.json({"fulfillmentText": "Aqui vão as cotações do dia 😉 \n \n" 
+                       + "✔️ Dólar Comercial: $ " + data.USD.bid
+                       + "\n✔️ Euro: € " + data.EUR.bid
+                       + "\n✔️ Yen: ¥ " + data.JPY.bid
+                       + "\n✔️ Bitcoin: ฿ " + data.BTC.bid
+                       + "\n \nPosso ajudar em mais alguma coisa? 🤔"})
+          }
+        }   
       })
     })
   }
