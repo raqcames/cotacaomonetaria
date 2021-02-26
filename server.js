@@ -47,11 +47,11 @@ app.post('/Dialogflow', function(request, response){
      
     let number = request.body.queryResult.parameters['number']
     
-    let BRL = request.body.queryResult.parameters['Real']
-    let USD = request.body.queryResult.parameters['Dolar']
-    let EUR = request.body.queryResult.parameters['Euro']
-    let JPY = request.body.queryResult.parameters['Iene']
-    let BTC = request.body.queryResult.parameters['Bitcoin']
+    let BRL = request.body.queryResult.parameters['real']
+    let USD = request.body.queryResult.parameters['dolar']
+    let EUR = request.body.queryResult.parameters['euro']
+    let JPY = request.body.queryResult.parameters['iene']
+    let BTC = request.body.queryResult.parameters['bitcoin']
     
     let frase = request.body.queryResult.queryText
     let retorno = frase.split(' ')
@@ -108,17 +108,17 @@ app.post('/Dialogflow', function(request, response){
         if(array.length == 1){
           if(array[0] === "USD"){
             let conversao = number / data.USD.high
-            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + conversao})
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + conversao.toFixed(2)})
           }  
         
           if(EUR === "EUR"){
             let conversao = number / data.EUR.high
-            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao})
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Euro ficou de € " + conversao.toFixed(2)})
           }
         
           if(JPY === "JPY"){
             let conversao = number / data.JPY.high
-            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Iene Japonês ficou de ¥ " + conversao})
+            response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Iene Japonês ficou de ¥ " + conversao.toFixed(2)})
           }
         
           if(BTC === "BTC"){
@@ -130,13 +130,13 @@ app.post('/Dialogflow', function(request, response){
         if(array[0] == "EUR"){
           switch (array[1]){
             case "BRL":
-              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + (number * data.EUR.high)})
+              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Real ficou de R$ " + (number * data.EUR.high).toFixed(2)})
               break
             case "USD":
-              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Dólar Americano ficou de $ " + ((number * data.EUR.high)/ data.USD.high)})
+              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Dólar Americano ficou de $ " + ((number * data.EUR.high)/ data.USD.high).toFixed(2)})
               break
             case "JPY":
-              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.EUR.high)/ data.JPY.high)})
+              response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.EUR.high)/ data.JPY.high).toFixed(2)})
               break
             case "BTC":
               response.json({"fulfillmentText": "A conversão do valor € " + number + " para o Bitcoin ficou de ฿ " + ((number * data.EUR.high)/ data.BTC.high)})
@@ -147,13 +147,13 @@ app.post('/Dialogflow', function(request, response){
         if(array[0] == "BRL"){
           switch (array[1]){
             case "EUR":
-              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Real ficou de € " + (number / data.EUR.high)})
+              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Real ficou de € " + (number / data.EUR.high).toFixed(2)})
               break
             case "USD":
-              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + (number / data.USD.high)})
+              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Dólar Americano ficou de $ " + (number / data.USD.high).toFixed(2)})
               break
             case "JPY":
-              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Iene Japonês ficou de ¥ " + (number / data.JPY.high)})
+              response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Iene Japonês ficou de ¥ " + (number / data.JPY.high).toFixed(2)})
               break
             case "BTC":
               response.json({"fulfillmentText": "A conversão do valor R$ " + number + " para o Bitcoin ficou de ฿ " + (number / data.BTC.high)})
@@ -164,13 +164,13 @@ app.post('/Dialogflow', function(request, response){
         if(array[0] == "USD"){
           switch (array[1]){
             case "BRL":
-              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Real ficou de R$ " + (number * data.USD.high)})
+              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Real ficou de R$ " + (number * data.USD.high).toFixed(2)})
               break
             case "EUR":
-              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Euro ficou de € " + ((number * data.USD.high)/ data.EUR.high)})
+              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Euro ficou de € " + ((number * data.USD.high)/ data.EUR.high).toFixed(2)})
               break
             case "JPY":
-              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.USD.high)/ data.JPY.high)})
+              response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.USD.high)/ data.JPY.high).toFixed(2)})
               break
             case "BTC":
               response.json({"fulfillmentText": "A conversão do valor $ " + number + " para o Bitcoin ficou de ฿ " + ((number * data.USD.high)/ data.BTC.high)})
@@ -181,13 +181,13 @@ app.post('/Dialogflow', function(request, response){
         if(array[0] == "JPY"){
           switch (array[1]){
             case "BRL":
-              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Real ficou de R$ " + (number * data.JPY.high)})
+              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Real ficou de R$ " + (number * data.JPY.high).toFixed(2)})
               break
             case "EUR":
-              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Euro ficou de € " + ((number * data.JPY.high)/ data.EUR.high)})
+              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Euro ficou de € " + ((number * data.JPY.high)/ data.EUR.high).toFixed(2)})
               break
             case "USD":
-              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Dólar Americano ficou de $ " + ((number * data.JPY.high)/ data.USD.high)})
+              response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Dólar Americano ficou de $ " + ((number * data.JPY.high)/ data.USD.high).toFixed(2)})
               break
             case "BTC":
               response.json({"fulfillmentText": "A conversão do valor ¥ " + number + " para o Bitcoin ficou de ฿ " + ((number * data.JPY.high)/ data.BTC.high)})
@@ -198,16 +198,16 @@ app.post('/Dialogflow', function(request, response){
         if(array[0] == "BTC"){
           switch (array[1]){
             case "BRL":
-              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Real ficou de R$ " + (number * data.BTC.high)})
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Real ficou de R$ " + (number * data.BTC.high).toFixed(2)})
               break
             case "EUR":
-              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Euro ficou de € " + ((number * data.BTC.high)/ data.EUR.high)})
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Euro ficou de € " + ((number * data.BTC.high)/ data.EUR.high).toFixed(2)})
               break
             case "USD":
-              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Dólar Americano ficou de $ " + ((number * data.BTC.high)/ data.USD.high)})
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Dólar Americano ficou de $ " + ((number * data.BTC.high)/ data.USD.high).toFixed(2)})
               break
             case "JPY":
-              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.BTC.high)/ data.JPY.high)})
+              response.json({"fulfillmentText": "A conversão do valor ฿ " + number + " para o Iene Japonês ficou de ¥ " + ((number * data.BTC.high)/ data.JPY.high).toFixed(2)})
               break
           }
         }
