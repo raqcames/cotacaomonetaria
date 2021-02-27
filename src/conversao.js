@@ -1,6 +1,9 @@
-import { CODE_API, INPUT_USER, SYMBOLS } from './moeda';
+const MOEDA = require('./moeda')
+const CODE_API = MOEDA.CODE_API
+const INPUT_USER = MOEDA.INPUT_USER
+const SYMBOLS = MOEDA.SYMBOLS
 
-export const conversao = (dataAPI, queryResult) => {
+module.exports = (dataAPI, queryResult) => {
     
     const parameters = queryResult.parameters
     const frase = queryResult.queryText

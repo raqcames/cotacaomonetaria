@@ -1,6 +1,6 @@
-import { conversao } from './src/conversao';
-import { cotacao } from './src/cotacao';
-import { get } from './src/util'
+const conversao = require("./src/conversao")
+const cotacao = require("./src/cotacao")
+const get = require("./src/util")
 
 const express = require("express");
 const bodyParser = require("body-parser");

@@ -1,7 +1,9 @@
-import { CODE_API, INPUT_USER, SYMBOLS } from './moeda';
+const MOEDA = require('./moeda')
+const CODE_API = MOEDA.CODE_API
+const INPUT_USER = MOEDA.INPUT_USER
+const SYMBOLS = MOEDA.SYMBOLS
 
-export const cotacao = (dataAPI, requestParams) => {
-
+module.exports = (dataAPI, requestParams) => {
     const moedaFiltrada = INPUT_USER.filter(moeda => !!requestParams[moeda])
     let cotacao = "Aqui vão as cotações do dia 😉 \n \n";
 
