@@ -7,11 +7,13 @@ module.exports.conversao = (dataAPI, queryResult) => {
     
     const parameters = queryResult.parameters
     const frase = queryResult.queryText
+    const outputParameters = queryResult.outputContexts[0].parameters    
+
   
-    const originalInputs = INPUT_USER.filter(moeda => !!parameters[`${moeda}.original`])
+    const originalInputs = INPUT_USER.filter(moeda => !!outputParameters[`${moeda}.original`])
 
     const currency = originalInputs.sort((a, b) => {
-        return frase.indexOf(parameters[`${a}.original`]) - frase.indexOf(parameters[`${b}.original`])
+        return frase.indexOf(outputParameters[`${a}.original`]) - frase.indexOf(outputParameters[`${b}.original`])
     })
 
     if (currency.length == 1) {

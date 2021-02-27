@@ -6,7 +6,7 @@ const SYMBOLS = MOEDA.SYMBOLS
 module.exports.cotacao = (dataAPI, requestParams) => {
     const moedaFiltrada = INPUT_USER
       .filter(moeda => !!requestParams[moeda])
-      .map(moeda => !!requestParams[moeda])
+      .map(moeda => requestParams[moeda])
     
     let cotacao = "Aqui vão as cotações do dia 😉 \n \n";
   
