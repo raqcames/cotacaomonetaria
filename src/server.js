@@ -13,6 +13,7 @@ app.get("/", (request, response) => {
 
 app.post("/Dialogflow", function(request, response) {
   var intentName = request.body.queryResult.intent.displayName;
+  console.log(queryResult)
 
   if (intentName == "Cotacao") {
     let BRL = request.body.queryResult.parameters["real"];
