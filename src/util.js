@@ -1,21 +1,17 @@
 const https = require("https");
 
-module.export = url => {
+module.exports.get = url => {
     return new Promise((resolve, reject) => {
       
         https.get(url, resp => {
-          let data
+          let data = ''
             resp.on("data", chunk => {
                 data += chunk;
             });
 
             resp.on("end", () => {
-                try {
-                    data = JSON.parse(data);
-                    resolve(data)
-                } catch (error) {
-                    reject(error)
-                }
+                data = JSON.parse(data);
+                resolve(data);
             })
         })
     })

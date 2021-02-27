@@ -3,7 +3,7 @@ const CODE_API = MOEDA.CODE_API
 const INPUT_USER = MOEDA.INPUT_USER
 const SYMBOLS = MOEDA.SYMBOLS
 
-module.exports = (dataAPI, queryResult) => {
+module.exports.conversao = (dataAPI, queryResult) => {
     
     const parameters = queryResult.parameters
     const frase = queryResult.queryText
