@@ -8,7 +8,7 @@ module.exports.cotacao = (dataAPI, requestParams) => {
       .filter(moeda => !!requestParams[moeda])
       .map(moeda => requestParams[moeda])
     
-    let cotacao = "Aqui vão as cotações do dia 😉 \n \n";
+    let cotacao = "Cotação do Dia 😉 \n \n";
   
     (moedaFiltrada.length ? moedaFiltrada : CODE_API).forEach(coinCode => {
         cotacao += `✔️ ${dataAPI[coinCode].name}: ${SYMBOLS[coinCode]} ${dataAPI[coinCode].bid} \n`
