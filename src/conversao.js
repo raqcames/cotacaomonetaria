@@ -26,11 +26,12 @@ module.exports.conversao = (dataAPI, queryResult) => {
     const number = parameters.number
     let calculoConversao
     if (currency[0] == 'real') {
-        calculoConversao = (number / dataAPI[code2].bid)
+        calculoConversao = (number / dataAPI[code2].bid).toFixed(2)
     } else if (currency[1] == 'real') {
-        calculoConversao = (number * dataAPI[code1].bid)
+        calculoConversao = (number * dataAPI[code1].bid).toFixed(2)
+        return `A conversão do valor ${SYMBOLS[code1]} ${number} para o Real ficou de ${SYMBOLS[code2]} ${calculoConversao}`
     } else {
-        calculoConversao = ((number * dataAPI[code1].bid) / dataAPI[code2].bid)
+        calculoConversao = ((number * dataAPI[code1].bid) / dataAPI[code2].bid).toFixed(2)
     }
 
     return `A conversão do valor ${SYMBOLS[code1]} ${number} para o ${dataAPI[code2].name} ficou de ${SYMBOLS[code2]} ${calculoConversao}`
