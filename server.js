@@ -1,6 +1,6 @@
 const conversao = require("./src/conversao").conversao
 const cotacao = require("./src/cotacao").cotacao
-const get = require("./src/util").get
+const get = require("./src/dados").get
 
 const express = require("express");
 const bodyParser = require("body-parser");
