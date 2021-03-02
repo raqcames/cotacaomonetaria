@@ -8,6 +8,8 @@ module.exports.cotacao = (dataAPI, requestParams) => {
       .filter(moeda => !!requestParams[moeda])
       .map(moeda => requestParams[moeda])
     
+    return `${moedaFiltrada[0]} e ${moedaFiltrada[0]} }`
+    
     let cotacao = "Cotação do Dia 😉 \n \n";
   
     (moedaFiltrada.length ? moedaFiltrada : CODE_API).forEach(coinCode => {
